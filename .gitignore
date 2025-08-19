@@ -209,3 +209,7 @@ __marimo__/
 
 # NPM Modulesnode_modules/
 frontend/node_modules
+
+# Models
+results/
+backend/results
