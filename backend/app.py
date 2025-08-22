@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import threading
 from translator import UniversalTranslator
+import torch
 
 # Flask API Setup
 app = Flask(__name__)
@@ -55,6 +56,10 @@ def get_translator(src_lang, tgt_lang):
 # API Endpoints
 @app.route('/api/health', methods=['GET'])
 def health_check():
+    try:
+        device_info = 'cuda' if torch.cuda.is_available() else 'cpu'
+    except Exception:
+        device_info = 'cpu'
     model_status = {}
     # Check model paths
     for pair, path in MODEL_PATHS.items():
